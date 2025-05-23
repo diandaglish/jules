@@ -1,21 +1,18 @@
 package com.example
 
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method
-import org.http4k.core.Response
-import org.http4k.core.Status
-import org.http4k.routing.bind
-import org.http4k.routing.routes
+import com.example.application.GreetingServiceImpl
+import com.example.infrastructure.createHttpApi
 import org.http4k.server.Netty
 import org.http4k.server.asServer
 
 fun main() {
-    val app: HttpHandler = routes(
-        "/hello" bind Method.GET to {
-            Response(Status.OK).body("Hello, World!")
-        }
-    )
+    // Instantiate services
+    val greetingService = GreetingServiceImpl()
 
-    app.asServer(Netty(9000)).start()
-    println("Server started on port 9000")
+    // Create HttpApi (routes) with injected services
+    val httpApi = createHttpApi(greetingService)
+
+    // Start the server
+    httpApi.asServer(Netty(9000)).start()
+    println("Server started on port 9000 with Onion Architecture")
 }
