@@ -24,5 +24,5 @@ application {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "1.8" // Or your preferred JVM target
+    kotlinOptions.jvmTarget = "21" // Or your preferred JVM target
 }
